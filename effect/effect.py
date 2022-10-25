@@ -1,6 +1,7 @@
 from character import Character
 from enemy import Enemy
 from team import Team
+from stats import Stats
 
 class Effect:
     def __init__(self):
@@ -13,7 +14,7 @@ class Effect:
         self.name = name
         return self
 
-    def set_effect_applicator(callback: Callable[[Character, Team, Enemy, int], int]):
+    def set_effect_applicator(callback: Callable[[Character, Team, Enemy]]):
         self.callback = callback
         return self
 
@@ -25,8 +26,11 @@ class Effect:
         self,
         team: Team,
         enemy: Enemy,
-        starting_time: int = 0):
-        self.callback(self.source, team, enemy, self.duration)
+        action_during_effect: Callable,
+        starting_time: int = 0
+    ):
+        self.callback(self.source, team, enemy)
+        action_during_effect()
         return starting_time + max(0, self.duration)
 
     def to_str(self, tabs = 0):

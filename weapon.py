@@ -41,5 +41,5 @@ class Weapon(FullStats):
             
         return self
         
-    def add_weapon_effect(self, weapon_effect: Effect):
+    def add_weapon_effect(self, weapon_effect: WeaponEffect):
         self.effect = weapon_effect
